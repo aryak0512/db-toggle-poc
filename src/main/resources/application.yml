@@ -1,3 +1,5 @@
+## Cache profile starts here##
+
 spring:
   config:
     activate:
@@ -23,7 +25,12 @@ spring:
 
 server:
   port: 9999
+
+cache:
+  enabled: true
+
 ---
+## SQL profile starts here##
 spring:
   config:
     activate:
@@ -45,3 +52,6 @@ spring:
 
 server:
   port: 9998
+
+cache:
+  enabled: false

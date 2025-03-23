@@ -32,7 +32,7 @@ class BookServiceImplTest {
     void testAddBookWithValidParams() {
 
         BookRequest bookRequest = new BookRequest("",745, LocalDateTime.now());
-        when(bookDao.save(any())).thenReturn(any());
+        doNothing().when(bookDao).save(any());
         bookService.addBook(bookRequest);
         verify(bookDao, times(1)).save(any());
     }

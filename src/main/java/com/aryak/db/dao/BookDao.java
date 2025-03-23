@@ -1,8 +1,12 @@
 package com.aryak.db.dao;
 
 import com.aryak.db.domain.Book;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookDao extends JpaRepository<Book, Integer> {
+import java.util.Optional;
 
+public interface BookDao {
+
+    void save(Book book);
+
+    Optional<Book> findById(Integer id);
 }
