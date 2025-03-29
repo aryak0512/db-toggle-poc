@@ -1,6 +1,6 @@
 package com.aryak.db;
 
-import com.aryak.db.dao.GenericBookDao;
+import com.aryak.db.dao.BookDao;
 import com.aryak.db.domain.BookEntity;
 import com.aryak.db.domain.Book;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,8 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class CacheToSqlApplication implements CommandLineRunner {
@@ -35,10 +33,10 @@ public class CacheToSqlApplication implements CommandLineRunner {
         BookEntity bookEntity = getBookEntity(); // sql
 
         if ( cacheEnabled ) {
-            GenericBookDao<Book, Object> dao = (GenericBookDao<Book, Object>) context.getBean("bookDao2");
+            BookDao<Book, Object> dao = (BookDao<Book, Object>) context.getBean("bookDao2");
             dao.put(book);
         } else {
-            GenericBookDao<BookEntity, Integer> dao = (GenericBookDao<BookEntity, Integer>) context.getBean("bookDao2");
+            BookDao<BookEntity, Integer> dao = (BookDao<BookEntity, Integer>) context.getBean("bookDao2");
             dao.put(bookEntity);
         }
     }

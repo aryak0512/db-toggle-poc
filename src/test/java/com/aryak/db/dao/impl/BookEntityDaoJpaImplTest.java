@@ -1,16 +1,15 @@
 package com.aryak.db.dao.impl;
 
+import com.aryak.db.dao.BookDao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import com.aryak.db.dao.BookDao;
 import com.aryak.db.domain.BookEntity;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +40,7 @@ class BookEntityDaoJpaImplTest {
         bookEntity.setPublishedAt(LocalDateTime.now());
 
         // When
-        bookDao.save(bookEntity);
+        bookDao.put(bookEntity);
 
         // Then
         Optional<BookEntity> retrievedBook = bookDao.findById(bookEntity.getId()); // Use actual ID

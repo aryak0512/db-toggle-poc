@@ -1,11 +1,8 @@
 package com.aryak.db.config;
 
 import com.aryak.db.dao.BookDao;
-import com.aryak.db.dao.GenericBookDao;
 import com.aryak.db.dao.impl.BookDaoImpl;
 import com.aryak.db.dao.impl.BookDaoJpaImpl;
-import com.aryak.db.dao.impl.v2.BookDaoImpl2;
-import com.aryak.db.dao.impl.v2.BookDaoJpaImpl2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,15 +18,20 @@ public class DatabaseConfiguration {
     @Value("${cache.enabled:false}")
     boolean cacheEnabled;
 
+    /**
+     * toggle the impl conditionally
+     * @param cacheImpl - interacts with Ignite
+     * @param sqlImpl - interacts with SQL
+     * @return
+     */
     @Bean(value = "bookDao")
-    public BookDao bookDao(BookDaoImpl cacheImpl, BookDaoJpaImpl sqlImpl) {
+    @SuppressWarnings("all")
+    public BookDao<?, ?> bookDao(
+            @Qualifier("cacheImpl") BookDaoImpl cacheImpl,
+            @Qualifier("sqlImpl") BookDaoJpaImpl sqlImpl) {
+
         return cacheEnabled ? cacheImpl : sqlImpl;
     }
 
-    @Bean(value = "bookDao2")
-    public GenericBookDao<?, ?> bookDao2(
-            @Qualifier(value = "cacheImpl2") BookDaoImpl2 cacheImpl,
-            @Qualifier(value = "sqlImpl2") BookDaoJpaImpl2 sqlImpl) {
-        return cacheEnabled ? cacheImpl : sqlImpl;
-    }
+
 }

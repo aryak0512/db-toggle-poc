@@ -5,6 +5,7 @@ import com.aryak.db.domain.BookEntity;
 import com.aryak.db.domain.BookRequest;
 import com.aryak.db.exceptions.InvalidBookRequestException;
 import com.aryak.db.service.BookService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +13,11 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private final BookDao bookDao;
+    private final BookDao<BookEntity, Integer> bookDao;
 
-    public BookServiceImpl(BookDao bookDao) {
-        this.bookDao = bookDao;
+    @SuppressWarnings(value = "unchecked")
+    public BookServiceImpl(ApplicationContext context) {
+        this.bookDao = (BookDao<BookEntity, Integer>) context.getBean("bookDao");
     }
 
     @Override
@@ -29,13 +31,12 @@ public class BookServiceImpl implements BookService {
         bookEntity.setName(bookRequest.getName());
         bookEntity.setPrice(bookRequest.getPrice());
         bookEntity.setPublishedAt(bookRequest.getPublishedAt());
-        bookDao.save(bookEntity);
+        bookDao.put(bookEntity);
     }
 
     @Override
     public BookEntity findById(Integer bookId) {
-        var bookOptional = bookDao.findById(bookId);
-        return bookOptional.orElse(null);
+        return bookDao.findById(bookId).orElse(null);
     }
 
     @Override

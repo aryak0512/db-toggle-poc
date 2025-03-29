@@ -1,19 +1,15 @@
 package com.aryak.db.dao;
 
-import com.aryak.db.domain.BookEntity;
-
 import java.util.List;
 import java.util.Optional;
 
-public interface BookDao {
+public interface BookDao<K, V> {
 
-    void save(BookEntity bookEntity);
+    void put(K k);
 
-    Optional<BookEntity> findById(Integer id);
+    K get(V v);
 
-    List<BookEntity> findAll();
+    Optional<K> findById(int id);
 
-    void update(BookEntity bookEntity);
-
-    void deleteById(Integer id);
+    List<K> findAll();
 }

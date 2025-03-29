@@ -31,9 +31,9 @@ class BookEntityServiceImplTest {
     void testAddBookWithValidParams() {
 
         BookRequest bookRequest = new BookRequest("",745, LocalDateTime.now());
-        doNothing().when(bookDao).save(any());
+        doNothing().when(bookDao).put(any());
         bookService.addBook(bookRequest);
-        verify(bookDao, times(1)).save(any());
+        verify(bookDao, times(1)).put(any());
     }
 
     @Test
@@ -92,7 +92,7 @@ class BookEntityServiceImplTest {
 
         // Then - Capture the argument passed to bookDao.save()
         ArgumentCaptor<BookEntity> bookCaptor = ArgumentCaptor.forClass(BookEntity.class);
-        verify(bookDao, times(1)).save(bookCaptor.capture());
+        verify(bookDao, times(1)).put(bookCaptor.capture());
 
         // Assert that the book saved has correct properties
         BookEntity savedBookEntity = bookCaptor.getValue();
