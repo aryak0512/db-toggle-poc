@@ -1,7 +1,7 @@
 package com.aryak.db.service.impl;
 
 import com.aryak.db.dao.BookDao;
-import com.aryak.db.domain.Book;
+import com.aryak.db.domain.BookEntity;
 import com.aryak.db.domain.BookRequest;
 import com.aryak.db.exceptions.InvalidBookRequestException;
 import com.aryak.db.service.BookService;
@@ -25,21 +25,21 @@ public class BookServiceImpl implements BookService {
             throw new InvalidBookRequestException();
         }
 
-        Book book = new Book();
-        book.setName(bookRequest.getName());
-        book.setPrice(bookRequest.getPrice());
-        book.setPublishedAt(bookRequest.getPublishedAt());
-        bookDao.save(book);
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.setName(bookRequest.getName());
+        bookEntity.setPrice(bookRequest.getPrice());
+        bookEntity.setPublishedAt(bookRequest.getPublishedAt());
+        bookDao.save(bookEntity);
     }
 
     @Override
-    public Book findById(Integer bookId) {
+    public BookEntity findById(Integer bookId) {
         var bookOptional = bookDao.findById(bookId);
         return bookOptional.orElse(null);
     }
 
     @Override
-    public List<Book> findAll() {
-        return List.of();
+    public List<BookEntity> findAll() {
+        return bookDao.findAll();
     }
 }
