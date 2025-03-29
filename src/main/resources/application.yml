@@ -1,4 +1,4 @@
-## Cache profile starts here##
+## Cache profile starts here ##
 
 spring:
   config:
@@ -30,7 +30,7 @@ cache:
   enabled: true
 
 ---
-## SQL profile starts here##
+## SQL profile starts here ##
 spring:
   config:
     activate:
